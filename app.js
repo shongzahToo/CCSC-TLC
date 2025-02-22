@@ -53,6 +53,7 @@ function updateCells() {
             var isSelected = false
             var isStart = false
             var isEnd = false
+            var title = ""
             
             var dayOfWeek = day.id.slice(1)
             var timeSlotId = day.id.substring(0,1);
@@ -74,16 +75,22 @@ function updateCells() {
                             isEnd = true
                         }
                         if (timeSlotId == i) {
+                            title = `${Math.floor(range[0] / 2 + 6) % 12 + 1}:${(range[0] % 2) ? "00" : "30"}${range[0]>8 ? "PM" : "AM"}` +
+                            ` - ${Math.floor(range[1] / 2 + 7) % 12 + 1}:${(range[1] % 2) ? "30" : "00"}${range[1]>8 ? "PM" : "AM"}`
                             isSelected = true
                         }
                     }
                 });
             }
-
+            day.setAttribute("title", title)
             day.classList.toggle("selected", isSelected)
             day.classList.toggle("start", isStart)
             day.classList.toggle("end", isEnd)
         }
+    });
+
+    document.querySelectorAll("[data-toggle='tooltip']").forEach((el) => {
+        new bootstrap.Tooltip(el);
     });
 }
 
@@ -162,13 +169,16 @@ function CreateTable(){
             }
             var col = document.createElement('td');
             //Geof did this...
-            col.innerHTML = `${(i + 7) % 12 + 1}:${!j ? '00' : '30'} ${i + 8 > 12 ? "PM" : "AM"} - ${(i + 7 + (j ? 1 : 0)) % 12 + 1}:${j ? '00' : '30'} ${i + 9 > 12 ? "PM" : "AM"}`
+            var timeRange = `${(i + 7) % 12 + 1}:${!j ? '00' : '30'} ${i + 8 > 12 ? "PM" : "AM"} - ${(i + 7 + (j ? 1 : 0)) % 12 + 1}:${j ? '00' : '30'} ${i + 9 > 12 ? "PM" : "AM"}`
+            col.innerHTML = timeRange
             row.appendChild(col);
             var timeslots = []
             for (let k = 0; k < 5; k++) {
                 var empty = document.createElement('td');
                 //k can be used to coorespond to the day of the week
                 empty.id = `${slot}${days[k]}`
+                empty.setAttribute("data-placement", "right")
+                empty.setAttribute("data-toggle", "tooltip")
                 row.appendChild(empty)
             }
             body.appendChild(row);
