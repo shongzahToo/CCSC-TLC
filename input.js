@@ -1,25 +1,5 @@
-window.onload = async function() {
-    try {
-        const response = await fetch('http://70.57.81.35:5000/getschedule')
-        const apiData = await response.json()
 
-        classes = {
-            "Subject": {
-                "Class": []
-            }
-        }
-
-        Object.assign(classes, apiData)
-        CreateTable()
-        
-    } catch (error) {
-        document.getElementById("error").innerText = "An error occured, please try again later"
-        Array.from(["selectBoxContainer", "calendarContainer"]).forEach(id => {
-            document.getElementById(id).remove()
-        })
-        console.error('Failed to fetch schedule data:', error);
-    }
-};
+CreateTable()
 
 var days = ["MON", "TUE", "WED", "THU", "FRI"];
 
@@ -46,7 +26,6 @@ function CreateTable(){
     var slot = 0;
     for (let i = 0; i < 12; i++) {
         for (let j = 0; j < 2; j++) {
-            slot++;
             var time = 0;
             var row = document.createElement('tr');
             
@@ -65,10 +44,11 @@ function CreateTable(){
             for (let k = 0; k < 5; k++) {
                 var empty = document.createElement('td');
                 //k can be used to coorespond to the day of the week
-                empty.id = `${slot-1}${days[k]}`
+                empty.id = `${slot}${days[k]}`
                 row.appendChild(empty)
             }
             body.appendChild(row);
+            slot++;
         }
     }
     table.appendChild(body);

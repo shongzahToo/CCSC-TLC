@@ -168,7 +168,7 @@ function CreateTable(){
             for (let k = 0; k < 5; k++) {
                 var empty = document.createElement('td');
                 //k can be used to coorespond to the day of the week
-                empty.id = `${slot-1}${days[k]}`
+                empty.id = `${slot}${days[k]}`
                 row.appendChild(empty)
             }
             body.appendChild(row);
