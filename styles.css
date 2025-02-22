@@ -1,0 +1,79 @@
+:root {
+    --otc-headings-primary: #333333;
+    --otc-text-primary: #3D3D3D;
+    --otc-text-secondary: #555555;
+    --otc-dark-blue: #002C57;
+    --otc-blue: #00447B;
+    --otc-yellow: #FFCB05;
+    --otc-grey: #A7A9AC;
+    --otc-web-grey: #E0E3E6;
+    --otc-light-blue: #18B4E9;
+    --otc-pink: #D0108E;
+    --otc-green: #71C044;
+    --otc-link-color: #154ae1;
+    --white: #ffffff
+}
+
+body {
+    background-color: var(--otc-light-grey);
+}
+
+nav {
+    background-color: var(--otc-dark-blue);
+}
+
+.text {
+    font-weight: 700;
+    font-family: Roboto, sans-serif;
+    color: var(--white);
+}
+
+.main {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.selectBoxContainer {
+    padding-top: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.calendar :nth-child(-n+6) {
+    background-color: var(--otc-grey);
+}
+
+.highlight {
+    background-color: var(--otc-web-grey);
+}
+
+.calendar {
+    font-size: 14px;
+    width: 80%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 140px repeat(5, 1fr);
+    grid-auto-rows: 35px;
+    border: 1px solid #ccc;
+    margin-bottom: 100px;
+    border-radius: 3px;
+}
+
+.time-slot,
+.day {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 5px;
+}
+
+.block {
+    background-color: #007bff;
+    width: 100%;
+    height: 100%;
+}
+
+.selected {
+    background-color: #3D3D3D;
+}
