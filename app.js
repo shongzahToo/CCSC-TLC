@@ -28,10 +28,15 @@ var days = ["MON", "TUE", "WED", "THU", "FRI"];
 
 const calendar = document.getElementById("calendar");
 
+document.getElementById("floatingSelect").addEventListener("change", () => {
+    UpdateSecondDropdown(classes);
+    updateCells();
+});
+document.getElementById("floatingSelect2").addEventListener("change", updateCells);
+
 function updateCells() {
 
     //Get index from drop down
-
     var tbody = document.getElementById("calendar").children[1];
     var dayCells = [];
     for (let tr = 0; tr < tbody.children.length; tr++) {
@@ -79,6 +84,7 @@ function updateCells() {
                             ` - ${Math.floor(range[1] / 2 + 7) % 12 + 1}:${(range[1] % 2) ? "30" : "00"} ${range[1]>8 ? "PM" : "AM"}`
                             isSelected = true
                         }
+                        
                     }
                 });
             }
@@ -91,12 +97,6 @@ function updateCells() {
         }
     });
 }
-
-document.getElementById("floatingSelect").addEventListener("change", () => {
-    UpdateSecondDropdown(classes);
-    updateCells();
-});
-document.getElementById("floatingSelect2").addEventListener("change", updateCells);
 
 function populateFirstDropdown(classes) {
     const firstSelect = document.getElementById("floatingSelect")
