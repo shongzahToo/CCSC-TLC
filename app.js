@@ -4,7 +4,7 @@ window.onload = async function() {
         const apiData = await response.json()
 
         classes = {
-            "subject": {
+            "Subject": {
                 "Class": []
             }
         }

@@ -13,15 +13,12 @@
     --otc-link-color: #154ae1;
     --white: #ffffff
 }
-
 body {
     background-color: var(--otc-web-grey);
 }
-
 nav {
     background-color: var(--otc-dark-blue);
 }
-
 .text {
     font-weight: 700;
     font-family: Roboto, sans-serif;
@@ -108,4 +105,12 @@ thead:last-child tr:last-child th:first-child, tbody:last-child tr:last-child td
 }
 th:last-child, td:last-child {
     border-right: 0px;
+}
+.logo
+{
+    width:50px;
+    height:50px;
+    background-image: url('https://services.otc.edu/media/uploads/sites/19/sites/14/2019/03/favicon-otc2019.jpg');
+    background-size: cover;
+    border-radius: 10px;
 }
