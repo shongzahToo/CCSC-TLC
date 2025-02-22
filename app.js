@@ -156,12 +156,12 @@ function CreateTable(){
     //Creates the headers for the table
     header.innerHTML = 
     `<tr>
-        <th scope = "col">Time</th>
+        <th scope = "col" class="corner_left">Time</th>
         <th scope = "col">Monday</th>
         <th scope = "col">Tuesday</th>
         <th scope = "col">Wednesday</th>
         <th scope = "col">Thursday</th>
-        <th scope = "col">Friday</th>
+        <th scope = "col" class="corner_right">Friday</th>
     </tr>`
     table.appendChild(header);
     
