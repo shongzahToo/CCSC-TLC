@@ -72,14 +72,15 @@ function updateCells() {
 
             if (timeSlots) {
                 timeSlots.forEach(range => {
-                    if(timeSlotId == range[0]) {
+                    if((timeSlotId) == (range[0])) {
                         isStart = true
-                    } else if (timeSlotId == range[1]){
+                    } else if ((timeSlotId) == (range[1] - 1)){
                         isEnd = true
                     }
-                    if((range[0] <= timeSlotId) && (timeSlotId<= range[1])) {
-                        title = `${Math.floor(range[0] / 2 + 6) % 12 + 1}:${(range[0] % 2) ? "00" : "30"} ${range[0]>8 ? "PM" : "AM"}` +
-                            ` - ${Math.floor(range[1] / 2 + 7) % 12 + 1}:${(range[1] % 2) ? "30" : "00"} ${range[1]>8 ? "PM" : "AM"}`
+                    if(((range[0]) <= (timeSlotId)) && ((timeSlotId) <= (range[1] - 1))) {
+                        console.log(`${range[0]} <= ${timeSlotId} <= ${range[1] - 1}`)
+                        title = `${(Math.floor(range[0] / 2) + 7) % 12 + 1}:${((range[0] - 1) % 2) ? "00" : "30"} ${(range[0] - 1)>8 ? "PM" : "AM"}` +
+                            ` - ${Math.floor((range[1]) / 2 + 7) % 12 + 1}:${((range[1]) % 2) ? "30" : "00"} ${(range[1])>8 ? "PM" : "AM"}`
                             isSelected = true
                     }
                 });
@@ -169,7 +170,7 @@ function CreateTable(){
             for (let k = 0; k < 5; k++) {
                 var empty = document.createElement('td');
                 //k can be used to coorespond to the day of the week
-                empty.id = `${slot-1}${days[k]}`
+                empty.id = `${slot}${days[k]}`
                 row.appendChild(empty)
             }
             body.appendChild(row);
