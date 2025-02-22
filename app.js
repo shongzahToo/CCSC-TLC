@@ -72,19 +72,15 @@ function updateCells() {
 
             if (timeSlots) {
                 timeSlots.forEach(range => {
-                    for (let i = range[0]; i <= range[1]; i++) {
-                        if(timeSlotId == range[0]) {
-                            isStart = true
-                        }
-                        if(timeSlotId == range[1]) {
-                            isEnd = true
-                        }
-                        if (timeSlotId == i) {
-                            title = `${Math.floor(range[0] / 2 + 6) % 12 + 1}:${(range[0] % 2) ? "00" : "30"} ${range[0]>8 ? "PM" : "AM"}` +
+                    if(timeSlotId == range[0]) {
+                        isStart = true
+                    } else if (timeSlotId == range[1]){
+                        isEnd = true
+                    }
+                    if((range[0] <= timeSlotId) && (timeSlotId<= range[1])) {
+                        title = `${Math.floor(range[0] / 2 + 6) % 12 + 1}:${(range[0] % 2) ? "00" : "30"} ${range[0]>8 ? "PM" : "AM"}` +
                             ` - ${Math.floor(range[1] / 2 + 7) % 12 + 1}:${(range[1] % 2) ? "30" : "00"} ${range[1]>8 ? "PM" : "AM"}`
                             isSelected = true
-                        }
-                        
                     }
                 });
             }
@@ -155,7 +151,6 @@ function CreateTable(){
     var slot = 0;
     for (let i = 0; i < 12; i++) {
         for (let j = 0; j < 2; j++) {
-            slot++;
             var time = 0;
             var row = document.createElement('tr');
             
@@ -178,6 +173,7 @@ function CreateTable(){
                 row.appendChild(empty)
             }
             body.appendChild(row);
+            slot++;
         }
     }
     table.appendChild(body);
