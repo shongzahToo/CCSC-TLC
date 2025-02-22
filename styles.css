@@ -71,7 +71,7 @@ nav {
     height: 100%;
 }
 .selected {
-    background-color: #3D3D3D !important;
+    background-color: var(--otc-dark-blue) !important;
     box-shadow: none !important;
 }
 table { 
