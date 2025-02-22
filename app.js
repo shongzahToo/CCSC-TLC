@@ -75,14 +75,15 @@ function updateCells() {
                             isEnd = true
                         }
                         if (timeSlotId == i) {
-                            title = `${Math.floor(range[0] / 2 + 6) % 12 + 1}:${(range[0] % 2) ? "00" : "30"}${range[0]>8 ? "PM" : "AM"}` +
-                            ` - ${Math.floor(range[1] / 2 + 7) % 12 + 1}:${(range[1] % 2) ? "30" : "00"}${range[1]>8 ? "PM" : "AM"}`
+                            title = `${Math.floor(range[0] / 2 + 6) % 12 + 1}:${(range[0] % 2) ? "00" : "30"} ${range[0]>8 ? "PM" : "AM"}` +
+                            ` - ${Math.floor(range[1] / 2 + 7) % 12 + 1}:${(range[1] % 2) ? "30" : "00"} ${range[1]>8 ? "PM" : "AM"}`
                             isSelected = true
                         }
                     }
                 });
             }
             day.setAttribute("title", title)
+            day.setAttribute("data-bs-original-title", "")
             day.classList.toggle("selected", isSelected)
             day.classList.toggle("start", isStart)
             day.classList.toggle("end", isEnd)
