@@ -12,6 +12,11 @@ let tutors = [
                 "subject": "MTH"
             },
             {
+                "class_id": 102,
+                "number": 102,
+                "subject": "MTH"
+            },
+            {
                 "class_id": 202,
                 "number": 202,
                 "subject": "ENG"
@@ -53,19 +58,21 @@ function setupSelect() {
     let tutorsSelect = document.getElementById("tutorSelect");
     let classesSelect = document.getElementById("classSelect");
     let departmentSelect = document.getElementById("departmentSelect");
+    let classes = {};
     for (let i = 0; i < tutors.length; i++) {
         let option = document.createElement("option");
         option.innerText = tutors[i].first_name +" "+tutors[i].last_name;
         tutorsSelect.appendChild(option);
         for (let c = 0; c < tutors[i].classes.length; c++) {
-            option = document.createElement("option");
-            option.innerText = tutors[i].classes[c].subject;
-            departmentSelect.appendChild(option);
-            option = document.createElement("option");
-            option.innerText = tutors[i].classes[c].subject;
-            departmentSelect.appendChild(option);
-        } 
+            if(!classes[tutors[i].classes[c].subject])
+            {
+                classes[tutors[i].classes[c].subject] = [];
+            }
+            classes[tutors[i].classes[c].subject].push(tutors[i].classes[c].number);
+        }
     }
+    populateFirstDropdown(classes);
+    UpdateSecondDropdown(classes)
 }
 function populateFirstDropdown(classes) {
     const firstSelect = document.getElementById("floatingSelect")
@@ -88,13 +95,13 @@ function UpdateSecondDropdown(classes) {
 
     if (selectedSubject && classes[selectedSubject]) {
         const classCodes = classes[selectedSubject];
-        for (const classCode in classCodes) {
-            if (classCodes.hasOwnProperty(classCode)) {
-                const option = document.createElement("option");
-                option.value = classCode;
-                option.textContent = classCode;
-                secondSelect.appendChild(option);
-            }
+        for (let i = 0; i < classes[selectedSubject].length; i++) {
+            const classCode = classes[selectedSubject][i];
+            
+            const option = document.createElement("option");
+            option.value = classCode;
+            option.textContent = classCode;
+            secondSelect.appendChild(option);
         }
     }
 
@@ -241,9 +248,9 @@ function formatData()
     }
     selectedTimes.set(dayOfWeek, times);
     console.log(selectedTimes);
-    formatData()
+    formatSelectedData()
 }
-function formatData() {
+function formatSelectedData() {
     let array = Array.from(selectedTimes);
     let final = new Map();
     if (array) {
