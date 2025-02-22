@@ -1,8 +1,21 @@
-
-CreateTable()
-
 var days = ["MON", "TUE", "WED", "THU", "FRI"];
+CreateTable()
+function setupSelect(tutors)
+{
+    let tutorsSelect = document.getElementById("tutorSelect");
+    let classesSelect = document.getElementById("classSelect");
+    for (let i = 0; i < tutors.length; i++) {
+        let option = document.createElement("option");
+        option.innerText = tutors[i][0];
+        tutorsSelect.appendChild(option);
 
+        option = document.createElement("option");
+        for (let c = 1; c < tutors[i].length; c++) {
+            option.innerText = tutors[i][c];
+        }
+        classesSelect.appendChild(option);
+    }
+}
 //Creates a pretty table
 function CreateTable(){
     var table = document.getElementById('calendar');
