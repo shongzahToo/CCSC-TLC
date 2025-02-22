@@ -4,7 +4,7 @@ window.onload = async function() {
         const apiData = await response.json()
 
         classes = {
-            "subject": {
+            "Subject": {
                 "Class": []
             }
         }
@@ -12,7 +12,7 @@ window.onload = async function() {
         Object.assign(classes, apiData)
         populateFirstDropdown(classes)
         UpdateSecondDropdown(classes)
-
+        CreateTable()
         updateCells()
         
     } catch (error) {
@@ -48,12 +48,22 @@ const calendar = document.getElementById("calendar");
 //     }
 // }
 
-CreateTable()
+
 
 function updateCells() {
 
     //Get index from drop down
-    var dayCells = Array.from(document.getElementById("calendar").children).slice(6).filter((_, index) => (index) % 6 !== 0);
+
+    var tbody = document.getElementById("calendar").children[1];
+    var dayCells = [];
+    for (let tr = 0; tr < tbody.children.length; tr++) {
+        for (let td = 0; td < tbody.children[tr].children.length; td++) {
+            if(td != 0)
+            {
+                dayCells.push(tbody.children[tr].children[td]);
+            }
+        }
+    }
     var subject = document.getElementById("floatingSelect").value;
     var classCode = document.getElementById("floatingSelect2").value;
     var specificSchedule = classes[subject] && classes[subject][classCode]
@@ -63,13 +73,20 @@ function updateCells() {
             day.classList.toggle("selected", false)
         } else {
             var isSelected = false
-            var dayOfWeek = day.id.substring(0, 3)
-            var timeSlotId = day.id.slice(4)
+            
+            var dayOfWeek = day.id.slice(1)
+            var timeSlotId = day.id.substring(0,1);
+            if(day.id.length == 5)
+            {
+                timeSlotId = day.id.substring(0,2);
+                dayOfWeek = day.id.slice(2)
+            }
+            
             var timeSlots = specificSchedule[dayOfWeek]
 
             if (timeSlots) {
                 timeSlots.forEach(range => {
-                    for (let i = range.Start; i <= range.End; i++) {
+                    for (let i = range[0]; i <= range[1]; i++) {
                         if (timeSlotId == i) {
                             isSelected = true
                         }
@@ -122,10 +139,12 @@ function UpdateSecondDropdown(classes) {
     secondSelect.addEventListener("change", updateCells);
 }
 
+//Creates a pretty table
 function CreateTable(){
     var table = document.getElementById('calendar');
     table.innerHtml = "";
     var header = document.createElement('thead');
+    //Creates the headers for the table
     header.innerHTML = 
     `<tr>
         <th scope = "col">Time</th>
@@ -139,8 +158,11 @@ function CreateTable(){
     
     var body = document.createElement('tbody');
 
+    //slot cooresponds to the timeslot
+    var slot = 0;
     for (let i = 0; i < 12; i++) {
         for (let j = 0; j < 2; j++) {
+            slot++;
             var time = 0;
             var row = document.createElement('tr');
             
@@ -151,9 +173,16 @@ function CreateTable(){
                 time = i - 4;
             }
             var col = document.createElement('td');
-            
+            //Gef did this...
             col.innerHTML = `${(i + 7) % 12 + 1}:${!j ? '00' : '30'} ${i + 8 > 12 ? "PM" : "AM"} - ${(i + 7 + (j ? 1 : 0)) % 12 + 1}:${j ? '00' : '30'} ${i + 9 > 12 ? "PM" : "AM"}`
             row.appendChild(col);
+            var timeslots = []
+            for (let k = 0; k < 5; k++) {
+                var empty = document.createElement('td');
+                //k can be used to coorespond to the day of the week
+                empty.id = `${slot}${days[k]}`
+                row.appendChild(empty)
+            }
             body.appendChild(row);
         }
     }

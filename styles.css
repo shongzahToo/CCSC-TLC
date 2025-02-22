@@ -13,15 +13,12 @@
     --otc-link-color: #154ae1;
     --white: #ffffff
 }
-
 body {
-    background-color: var(--otc-light-grey);
+    background-color: var(--otc-web-grey);
 }
-
 nav {
     background-color: var(--otc-dark-blue);
 }
-
 .text {
     font-weight: 700;
     font-family: Roboto, sans-serif;
@@ -73,7 +70,47 @@ nav {
     width: 100%;
     height: 100%;
 }
-
 .selected {
-    background-color: #3D3D3D;
+    background-color: #3D3D3D !important;
+    box-shadow: none !important;
+}
+table { 
+    border: 1px solid #ddd;
+    border-collapse: separate;
+    border-radius: 10px;
+    border-spacing: 0px;
+}
+thead {
+    border-color: inherit;
+    border-collapse: separate;
+}
+tr {
+    border-color: inherit;
+}
+th, td {
+    border-left: 1px solid #ddd;
+    width: 15%;    
+}
+td {
+    border-top: 1px solid #ddd;
+}
+td:first-child, th:first-child {
+    width: 25%;
+}
+thead:first-child tr:first-child th:first-child, tbody:first-child tr:first-child td:first-child {
+    border-radius: 10px 0 0 0;
+}
+thead:last-child tr:last-child th:first-child, tbody:last-child tr:last-child td:first-child {
+    border-radius: 0 0 0 10px;
+}
+th:last-child, td:last-child {
+    border-right: 0px;
+}
+.logo
+{
+    width:50px;
+    height:50px;
+    background-image: url('https://services.otc.edu/media/uploads/sites/19/sites/14/2019/03/favicon-otc2019.jpg');
+    background-size: cover;
+    border-radius: 10px;
 }
