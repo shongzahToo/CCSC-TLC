@@ -184,7 +184,7 @@ function CreateTable(){
                 time = i - 4;
             }
             var col = document.createElement('td');
-            //Gef did this...
+            //Geof did this...
             col.innerHTML = `${(i + 7) % 12 + 1}:${!j ? '00' : '30'} ${i + 8 > 12 ? "PM" : "AM"} - ${(i + 7 + (j ? 1 : 0)) % 12 + 1}:${j ? '00' : '30'} ${i + 9 > 12 ? "PM" : "AM"}`
             row.appendChild(col);
             var timeslots = []
