@@ -22,8 +22,9 @@
 body {
     background-color: var(--otc-web-grey);
 }
-nav {
+nav, footer {
     background-color: var(--otc-dark-blue);
+    color: var(--otc-grey)
 }
 .text {
     font-weight: 700;
