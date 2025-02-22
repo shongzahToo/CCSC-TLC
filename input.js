@@ -66,38 +66,68 @@ function CreateTable(){
     }
     table.appendChild(body);
 }
+
 const selectedTimes = new Map();
+
 function updateData(clickEvent) {
-    clickEvent.target.classList.toggle("selected");
-    var selected = false;
-    for (var i = 0; i < clickEvent.target.classList.length; i++) {
-        if (clickEvent.target.classList[i] == "selected") {
-            selected = true;
+    const cell = clickEvent.target
+    const isSelected = cell.classList.contains("selected")
+
+    let dayOfWeek = cell.id.slice(1)
+    let timeSlotId = cell.id.substring(0, 1)
+
+    if (cell.id.length == 5) {
+        timeSlotId = cell.id.substring(0, 2)
+        dayOfWeek = cell.id.slice(2)
+    }
+
+    let times = selectedTimes.get(dayOfWeek) || []
+
+    if (isSelected) {
+        if (!times.includes(timeSlotId)) {
+            times.push(timeSlotId)
+        }
+    } else {
+        let index = times.indexOf(timeSlotId)
+        if (index > -1) {
+            times.splice(index, 1)
         }
     }
-    var dayOfWeek = clickEvent.target.id.slice(1)
-    var timeSlotId = clickEvent.target.id.substring(0, 1);
-    if (clickEvent.target.id.length == 5) {
-        timeSlotId = clickEvent.target.id.substring(0, 2);
-        dayOfWeek = clickEvent.target.id.slice(2)
-    }
-    let times = selectedTimes.get(dayOfWeek);
-    if (!times) {
-        times = [];
-    }
-    if (selected) {
-        times.push(timeSlotId);
-    }
-    else {
-        let index = times.indexOf(timeSlotId);
-        if (index > -1) { // only splice array when item is found
-            times.splice(index, 1); // 2nd parameter means remove one item only
-        }
-    }
-    selectedTimes.set(dayOfWeek, times);
-    console.log(selectedTimes);
-    formatData()    
+
+    selectedTimes.set(dayOfWeek, times)
+    console.log(selectedTimes)
+    formatData()
 }
+
+let isMouseDown = false
+let startSlot = null
+
+document.addEventListener("mousedown", (event) => {
+    if (event.target.tagName === "TD" && event.target.id) {
+        isMouseDown = true
+        startSlot = event.target
+        toggleSlot(event.target)
+        event.preventDefault()
+    }
+});
+
+document.addEventListener("mouseover", (event) => {
+    if (isMouseDown && event.target.tagName === "TD" && event.target.id) {
+        toggleSlot(event.target)
+    }
+});
+
+document.addEventListener("mouseup", () => {
+    isMouseDown = false
+    startSlot = null
+});
+
+function toggleSlot(cell) {
+    cell.classList.toggle("selected")
+    updateData({ target: cell })
+}
+
+
 function formatData()
 {
     let array = Array.from(selectedTimes);
