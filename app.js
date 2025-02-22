@@ -73,6 +73,8 @@ function updateCells() {
             day.classList.toggle("selected", false)
         } else {
             var isSelected = false
+            var isStart = false
+            var isEnd = false
             
             var dayOfWeek = day.id.slice(1)
             var timeSlotId = day.id.substring(0,1);
@@ -87,6 +89,12 @@ function updateCells() {
             if (timeSlots) {
                 timeSlots.forEach(range => {
                     for (let i = range[0]; i <= range[1]; i++) {
+                        if(timeSlotId == range[0]) {
+                            isStart = true
+                        }
+                        if(timeSlotId == range[1]) {
+                            isEnd = true
+                        }
                         if (timeSlotId == i) {
                             isSelected = true
                         }
@@ -95,6 +103,8 @@ function updateCells() {
             }
 
             day.classList.toggle("selected", isSelected)
+            day.classList.toggle("start", isStart)
+            day.classList.toggle("end", isEnd)
         }
     });
 }

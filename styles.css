@@ -73,6 +73,7 @@ nav {
 .selected {
     background-color: #3D3D3D !important;
     box-shadow: none !important;
+    
 }
 table { 
     border: 1px solid #ddd;
@@ -113,4 +114,14 @@ th:last-child, td:last-child {
     background-image: url('https://services.otc.edu/media/uploads/sites/19/sites/14/2019/03/favicon-otc2019.jpg');
     background-size: cover;
     border-radius: 10px;
+}
+
+.start {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.end {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
