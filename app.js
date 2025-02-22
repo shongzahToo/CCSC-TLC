@@ -8,7 +8,6 @@ window.onload = async function() {
                 "Class": []
             }
         }
-<<<<<<< HEAD
 
         //Fill nav and footers
         var nav = document.getElementById('nav');
@@ -29,8 +28,6 @@ window.onload = async function() {
       </div>`
 
 
-=======
->>>>>>> refs/remotes/origin/main
         Object.assign(classes, apiData)
         populateFirstDropdown(classes)
         UpdateSecondDropdown(classes)
@@ -174,10 +171,6 @@ function CreateTable(){
     var slot = 0;
     for (let i = 0; i < 12; i++) {
         for (let j = 0; j < 2; j++) {
-<<<<<<< HEAD
-            
-=======
->>>>>>> refs/remotes/origin/main
             var time = 0;
             var row = document.createElement('tr');
             
