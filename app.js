@@ -155,7 +155,6 @@ function CreateTable(){
     var slot = 0;
     for (let i = 0; i < 12; i++) {
         for (let j = 0; j < 2; j++) {
-            slot++;
             var time = 0;
             var row = document.createElement('tr');
             
@@ -178,6 +177,7 @@ function CreateTable(){
                 row.appendChild(empty)
             }
             body.appendChild(row);
+            slot++;
         }
     }
     table.appendChild(body);
