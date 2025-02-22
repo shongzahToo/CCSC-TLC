@@ -8,6 +8,26 @@ window.onload = async function() {
                 "Class": []
             }
         }
+
+        //Fill nav and footers
+        var nav = document.getElementById('nav');
+        var footer = document.getElementById('footer');
+        nav.innerHTML = `<div class="container d-flex flex-wrap">
+            <ul class="nav me-auto">
+                <a class="logo" href = "home.html">
+                </a>
+                <li class="nav-item"><a href="index.html" class="text nav-link px-2 active" aria-current="page">Schedules</a></li>
+                <li class="nav-item"><a href="#" class="text nav-link px-2">Cost & Aids</a></li>
+                <li class="nav-item"><a href="#" class="text nav-link px-2">Admissions</a></li>
+                <li class="nav-item"><a href="#" class="text nav-link px-2">Services</a></li>
+                <li class="nav-item"><a href="#" class="text nav-link px-2">About</a></li>
+            </ul>
+        </div>`
+        footer.innerHTML = `<div class="container">
+        <p>Put footer stuff here</p>
+      </div>`
+
+
         Object.assign(classes, apiData)
         populateFirstDropdown(classes)
         UpdateSecondDropdown(classes)
@@ -136,12 +156,12 @@ function CreateTable(){
     //Creates the headers for the table
     header.innerHTML = 
     `<tr>
-        <th scope = "col">Time</th>
+        <th scope = "col" class="corner_left">Time</th>
         <th scope = "col">Monday</th>
         <th scope = "col">Tuesday</th>
         <th scope = "col">Wednesday</th>
         <th scope = "col">Thursday</th>
-        <th scope = "col">Friday</th>
+        <th scope = "col" class="corner_right">Friday</th>
     </tr>`
     table.appendChild(header);
     
