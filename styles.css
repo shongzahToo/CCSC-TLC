@@ -11,7 +11,8 @@
     --otc-pink: #D0108E;
     --otc-green: #71C044;
     --otc-link-color: #154ae1;
-    --white: #ffffff
+    --white: #ffffff;
+    --error: rgb(255, 92, 92);
 }
 body {
     background-color: var(--otc-web-grey);
@@ -73,7 +74,6 @@ nav {
 .selected {
     background-color: #3D3D3D !important;
     box-shadow: none !important;
-    
 }
 table { 
     border: 1px solid #ddd;
@@ -124,4 +124,14 @@ th:last-child, td:last-child {
 .end {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+}
+
+.error {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 30%;
+    min-height: 10%;
+    color: var(--error);
 }

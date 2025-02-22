@@ -16,6 +16,7 @@ window.onload = async function() {
         updateCells()
         
     } catch (error) {
+        document.getElementById("error").innerText = "An error occured, please try again later"
         console.error('Failed to fetch schedule data:', error);
     }
 };
