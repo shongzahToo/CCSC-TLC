@@ -48,26 +48,64 @@ let tutors = [
         ]
     }
 ]
+setupSelect();
 function setupSelect() {
-    tutorsArray = Array.from(tutors);
-    tutorsArray[0].get("first_name");
-    console.log(tutorsArray[0].get("first_name"));
-    console.log(tutorsArray);
     let tutorsSelect = document.getElementById("tutorSelect");
     let classesSelect = document.getElementById("classSelect");
     let departmentSelect = document.getElementById("departmentSelect");
-    for (let i = 0; i < tutorsArrayutors.length; i++) {
+    for (let i = 0; i < tutors.length; i++) {
         let option = document.createElement("option");
-        option.innerText = tutorsArray[i];
+        option.innerText = tutors[i].first_name +" "+tutors[i].last_name;
         tutorsSelect.appendChild(option);
-
-        option = document.createElement("option");
-        for (let c = 1; c < tutors[i].length; c++) {
-            option.innerText = tutors[i][c];
-        }
-        departmentSelect.appendChild(option);
+        for (let c = 0; c < tutors[i].classes.length; c++) {
+            option = document.createElement("option");
+            option.innerText = tutors[i].classes[c].subject;
+            departmentSelect.appendChild(option);
+            option = document.createElement("option");
+            option.innerText = tutors[i].classes[c].subject;
+            departmentSelect.appendChild(option);
+        } 
     }
 }
+function populateFirstDropdown(classes) {
+    const firstSelect = document.getElementById("floatingSelect")
+    firstSelect.innerHTML = ""
+
+    for (const subject in classes) {
+        const option = document.createElement("option");
+        option.value = subject;
+        option.textContent = subject;
+        firstSelect.appendChild(option);
+    }
+
+    firstSelect.addEventListener("change", () => UpdateSecondDropdown(classes));
+}
+
+function UpdateSecondDropdown(classes) {
+    const secondSelect = document.getElementById("floatingSelect2");
+    const selectedSubject = document.getElementById("floatingSelect").value;
+    secondSelect.innerHTML = "";
+
+    if (selectedSubject && classes[selectedSubject]) {
+        const classCodes = classes[selectedSubject];
+        for (const classCode in classCodes) {
+            if (classCodes.hasOwnProperty(classCode)) {
+                const option = document.createElement("option");
+                option.value = classCode;
+                option.textContent = classCode;
+                secondSelect.appendChild(option);
+            }
+        }
+    }
+
+    secondSelect.addEventListener("change", updateCells);
+}
+document.getElementById("floatingSelect").addEventListener("change", () => {
+    UpdateSecondDropdown(classes);
+    updateCells();
+});
+document.getElementById("floatingSelect2").addEventListener("change", updateCells);
+
 //Creates a pretty table
 function CreateTable() {
     var table = document.getElementById('calendar');

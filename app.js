@@ -8,6 +8,29 @@ window.onload = async function() {
                 "Class": []
             }
         }
+<<<<<<< HEAD
+
+        //Fill nav and footers
+        var nav = document.getElementById('nav');
+        var footer = document.getElementById('footer');
+        nav.innerHTML = `<div class="container d-flex flex-wrap">
+            <ul class="nav me-auto">
+                <a class="logo" href = "home.html">
+                </a>
+                <li class="nav-item"><a href="index.html" class="text nav-link px-2 active" aria-current="page">Schedules</a></li>
+                <li class="nav-item"><a href="#" class="text nav-link px-2">Cost & Aids</a></li>
+                <li class="nav-item"><a href="#" class="text nav-link px-2">Admissions</a></li>
+                <li class="nav-item"><a href="#" class="text nav-link px-2">Services</a></li>
+                <li class="nav-item"><a href="#" class="text nav-link px-2">About</a></li>
+            </ul>
+        </div>`
+        footer.innerHTML = `<div class="container">
+        <p>Put footer stuff here</p>
+      </div>`
+
+
+=======
+>>>>>>> refs/remotes/origin/main
         Object.assign(classes, apiData)
         populateFirstDropdown(classes)
         UpdateSecondDropdown(classes)
@@ -151,6 +174,10 @@ function CreateTable(){
     var slot = 0;
     for (let i = 0; i < 12; i++) {
         for (let j = 0; j < 2; j++) {
+<<<<<<< HEAD
+            
+=======
+>>>>>>> refs/remotes/origin/main
             var time = 0;
             var row = document.createElement('tr');
             
