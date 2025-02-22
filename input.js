@@ -41,7 +41,7 @@ function CreateTable(){
     table.appendChild(header);
     
     var body = document.createElement('tbody');
-    body.addEventListener("click",slotSelected);
+    body.addEventListener("click",updateData);
     //slot cooresponds to the timeslot
     var slot = 0;
     for (let i = 0; i < 12; i++) {
@@ -73,7 +73,65 @@ function CreateTable(){
     }
     table.appendChild(body);
 }
-function slotSelected(event)
+const selectedTimes = new Map();
+function updateData(clickEvent) {
+    clickEvent.target.classList.toggle("selected");
+    var selected = false;
+    for (var i = 0; i < clickEvent.target.classList.length; i++) {
+        if (clickEvent.target.classList[i] == "selected") {
+            selected = true;
+        }
+    }
+    var dayOfWeek = clickEvent.target.id.slice(1)
+    var timeSlotId = clickEvent.target.id.substring(0, 1);
+    if (clickEvent.target.id.length == 5) {
+        timeSlotId = clickEvent.target.id.substring(0, 2);
+        dayOfWeek = clickEvent.target.id.slice(2)
+    }
+    let times = selectedTimes.get(dayOfWeek);
+    if (!times) {
+        times = [];
+    }
+    if (selected) {
+        times.push(timeSlotId);
+    }
+    else {
+        let index = times.indexOf(timeSlotId);
+        if (index > -1) { // only splice array when item is found
+            times.splice(index, 1); // 2nd parameter means remove one item only
+        }
+    }
+    selectedTimes.set(dayOfWeek, times);
+    console.log(selectedTimes);
+    formatData()    
+}
+function formatData()
 {
-    event.target.classList.toggle("selected");
+    let array = Array.from(selectedTimes);
+    let final = new Map();
+    if(array)
+    {
+        for (let day = 0; day < array.length; day++) {
+            array[day][1].sort();
+            let start = array[day][1][0];
+        let end = -999;
+        let lastNum = start;
+        for (let slot = 1; slot < array[day][1].length+1; slot++) {
+            if((array[day][1][slot] && (Number(lastNum)+1 !== Number(array[day][1][slot])))||slot == array[day][1].length)
+            {
+                end = lastNum;
+                let r = new Range(start,end);
+                start = array[day][1][slot];
+                console.log(r);
+            }
+            lastNum = array[day][1][slot];
+            }
+        }
+    }
+}
+class Range {
+    constructor(start, end) {
+        this.start = start;
+        this.end = end;
+    } 
 }
