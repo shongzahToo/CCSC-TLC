@@ -45,7 +45,6 @@ function updateCells() {
     var subject = document.getElementById("floatingSelect").value;
     var classCode = document.getElementById("floatingSelect2").value;
     var specificSchedule = classes[subject] && classes[subject][classCode]
-
     dayCells.forEach(day => {
         if (!specificSchedule) {
             day.classList.toggle("selected", false)
@@ -55,6 +54,7 @@ function updateCells() {
             var isEnd = false
             var title = ""
             
+            //grabbing day and time from cell id
             var dayOfWeek = day.id.slice(1)
             var timeSlotId = day.id.substring(0,1);
             if(day.id.length == 5)
@@ -82,16 +82,13 @@ function updateCells() {
                     }
                 });
             }
-            day.setAttribute("title", title)
-            day.setAttribute("data-bs-original-title", "")
             day.classList.toggle("selected", isSelected)
             day.classList.toggle("start", isStart)
+            
+            day.innerHTML = (isStart ? title : " ")
+            
             day.classList.toggle("end", isEnd)
         }
-    });
-
-    document.querySelectorAll("[data-toggle='tooltip']").forEach((el) => {
-        new bootstrap.Tooltip(el);
     });
 }
 
@@ -178,8 +175,6 @@ function CreateTable(){
                 var empty = document.createElement('td');
                 //k can be used to coorespond to the day of the week
                 empty.id = `${slot}${days[k]}`
-                empty.setAttribute("data-placement", "right")
-                empty.setAttribute("data-toggle", "tooltip")
                 row.appendChild(empty)
             }
             body.appendChild(row);

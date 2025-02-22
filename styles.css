@@ -124,6 +124,8 @@ th:last-child, td:last-child {
 .start {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    color: var(--white) !important;
+    font-size: small;
 }
 
 .end {
