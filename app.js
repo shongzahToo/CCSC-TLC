@@ -8,7 +8,6 @@ window.onload = async function() {
                 "Class": []
             }
         }
-
         Object.assign(classes, apiData)
         populateFirstDropdown(classes)
         UpdateSecondDropdown(classes)
