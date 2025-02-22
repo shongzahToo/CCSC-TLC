@@ -122,10 +122,12 @@ function UpdateSecondDropdown(classes) {
     secondSelect.addEventListener("change", updateCells);
 }
 
+//Creates a pretty table
 function CreateTable(){
     var table = document.getElementById('calendar');
     table.innerHtml = "";
     var header = document.createElement('thead');
+    //Creates the headers for the table
     header.innerHTML = 
     `<tr>
         <th scope = "col">Time</th>
@@ -139,8 +141,11 @@ function CreateTable(){
     
     var body = document.createElement('tbody');
 
+    //slot cooresponds to the timeslot
+    var slot = 0;
     for (let i = 0; i < 12; i++) {
         for (let j = 0; j < 2; j++) {
+            slot++;
             var time = 0;
             var row = document.createElement('tr');
             
@@ -151,9 +156,16 @@ function CreateTable(){
                 time = i - 4;
             }
             var col = document.createElement('td');
-            
+            //Gef did this...
             col.innerHTML = `${(i + 7) % 12 + 1}:${!j ? '00' : '30'} ${i + 8 > 12 ? "PM" : "AM"} - ${(i + 7 + (j ? 1 : 0)) % 12 + 1}:${j ? '00' : '30'} ${i + 9 > 12 ? "PM" : "AM"}`
             row.appendChild(col);
+            var timeslots = []
+            for (let k = 0; k < 5; k++) {
+                var empty = document.createElement('td');
+                //k can be used to coorespond to the day of the week
+                empty.id = `${slot}${k}`
+                row.appendChild(empty)
+            }
             body.appendChild(row);
         }
     }
