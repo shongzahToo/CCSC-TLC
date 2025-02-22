@@ -8,6 +8,7 @@ window.onload = async function() {
                 "Class": []
             }
         }
+<<<<<<< HEAD
 
         //Fill nav and footers
         var nav = document.getElementById('nav');
@@ -28,6 +29,8 @@ window.onload = async function() {
       </div>`
 
 
+=======
+>>>>>>> refs/remotes/origin/main
         Object.assign(classes, apiData)
         populateFirstDropdown(classes)
         UpdateSecondDropdown(classes)
@@ -69,7 +72,6 @@ function updateCells() {
     var subject = document.getElementById("floatingSelect").value;
     var classCode = document.getElementById("floatingSelect2").value;
     var specificSchedule = classes[subject] && classes[subject][classCode]
-
     dayCells.forEach(day => {
         if (!specificSchedule) {
             day.classList.toggle("selected", false)
@@ -79,6 +81,7 @@ function updateCells() {
             var isEnd = false
             var title = ""
             
+            //grabbing day and time from cell id
             var dayOfWeek = day.id.slice(1)
             var timeSlotId = day.id.substring(0,1);
             if(day.id.length == 5)
@@ -91,32 +94,26 @@ function updateCells() {
 
             if (timeSlots) {
                 timeSlots.forEach(range => {
-                    for (let i = range[0]; i <= range[1]; i++) {
-                        if(timeSlotId == range[0]) {
-                            isStart = true
-                        }
-                        if(timeSlotId == range[1]) {
-                            isEnd = true
-                        }
-                        if (timeSlotId == i) {
-                            title = `${Math.floor(range[0] / 2 + 6) % 12 + 1}:${(range[0] % 2) ? "00" : "30"} ${range[0]>8 ? "PM" : "AM"}` +
-                            ` - ${Math.floor(range[1] / 2 + 7) % 12 + 1}:${(range[1] % 2) ? "30" : "00"} ${range[1]>8 ? "PM" : "AM"}`
+                    if((timeSlotId) == (range[0])) {
+                        isStart = true
+                    } else if ((timeSlotId) == (range[1] - 1)){
+                        isEnd = true
+                    }
+                    if(((range[0]) <= (timeSlotId)) && ((timeSlotId) <= (range[1] - 1))) {
+                        console.log(`${range[0]} <= ${timeSlotId} <= ${range[1] - 1}`)
+                        title = `${(Math.floor(range[0] / 2) + 7) % 12 + 1}:${((range[0] - 1) % 2) ? "00" : "30"} ${(range[0] - 1)>8 ? "PM" : "AM"}` +
+                            ` - ${Math.floor((range[1]) / 2 + 7) % 12 + 1}:${((range[1]) % 2) ? "30" : "00"} ${(range[1])>8 ? "PM" : "AM"}`
                             isSelected = true
-                        }
-                        
                     }
                 });
             }
-            day.setAttribute("title", title)
-            day.setAttribute("data-bs-original-title", "")
             day.classList.toggle("selected", isSelected)
             day.classList.toggle("start", isStart)
+            
+            day.innerHTML = (isStart ? title : " ")
+            
             day.classList.toggle("end", isEnd)
         }
-    });
-
-    document.querySelectorAll("[data-toggle='tooltip']").forEach((el) => {
-        new bootstrap.Tooltip(el);
     });
 }
 
@@ -177,7 +174,10 @@ function CreateTable(){
     var slot = 0;
     for (let i = 0; i < 12; i++) {
         for (let j = 0; j < 2; j++) {
+<<<<<<< HEAD
             
+=======
+>>>>>>> refs/remotes/origin/main
             var time = 0;
             var row = document.createElement('tr');
             
@@ -197,8 +197,6 @@ function CreateTable(){
                 var empty = document.createElement('td');
                 //k can be used to coorespond to the day of the week
                 empty.id = `${slot}${days[k]}`
-                empty.setAttribute("data-placement", "right")
-                empty.setAttribute("data-toggle", "tooltip")
                 row.appendChild(empty)
             }
             body.appendChild(row);

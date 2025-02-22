@@ -81,11 +81,12 @@ nav, footer {
     background-color: var(--otc-dark-blue) !important;
     box-shadow: none !important;
 }
-table { 
+table {
     border: 1px solid #ddd;
     border-collapse: separate;
     border-radius: 10px;
     border-spacing: 0px;
+    background-color: var(--bs-table-bg);
 }
 thead {
     border-color: inherit;
@@ -125,6 +126,8 @@ th:last-child, td:last-child {
 .start {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    color: var(--white) !important;
+    font-size: small;
 }
 
 .end {
