@@ -1,3 +1,8 @@
+* {
+    font-weight: 700;
+    font-family: Roboto, sans-serif;
+}
+
 :root {
     --otc-headings-primary: #333333;
     --otc-text-primary: #3D3D3D;
@@ -126,7 +131,7 @@ th:last-child, td:last-child {
     border-bottom-right-radius: 10px;
 }
 
-.error {
+#error {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -134,4 +139,7 @@ th:last-child, td:last-child {
     min-width: 30%;
     min-height: 10%;
     color: var(--error);
+    display: inline-block;
+    text-align: center;
+    font-size: larger;
 }
