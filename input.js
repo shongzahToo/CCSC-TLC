@@ -58,11 +58,13 @@ document.getElementById("floatingSelect").addEventListener("change", () => {
     selectedTimes = []
     updateCells();
 });
+
 //visually delete the cells
 function clearTableDisplay() {
     document.getElementById("calendar").innerHTML = "";
     CreateTable();
 }
+
 //Visual update cells
 function updateCells() {
     var tbody = document.getElementById("calendar").children[1];
