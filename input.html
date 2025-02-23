@@ -13,32 +13,15 @@
 
 <body id="bs-overwrite">
     <div class="container"></div>
-    <nav class="py-2 border-bottom ">
-        <div class="container d-flex flex-wrap">
-            <ul class="nav me-auto">
-                <div class="logo">
-                </div>
-                <li class="nav-item"><a href="#" class="text nav-link px-2 active" aria-current="page">Programs</a></li>
-                <li class="nav-item"><a href="#" class="text nav-link px-2">Cost & Aids</a></li>
-                <li class="nav-item"><a href="#" class="text nav-link px-2">Admissions</a></li>
-                <li class="nav-item"><a href="#" class="text nav-link px-2">Services</a></li>
-                <li class="nav-item"><a href="#" class="text nav-link px-2">About</a></li>
-            </ul>
-        </div>
+    <nav class="py-2 border-bottom " id="nav">
     </nav>
     <div class="main">
         <div style="margin: 0 auto; max-width: 400px;">
             <div class="form selectBoxContainer" id="selectBoxContainer">
-                <select class="form-select dropDown" id="tutorSelect">
-                </select>
                 <select class="form-select dropDown" id="floatingSelect">
-                    <option selected value="subject">Subject</option>
-                    <option value="MTH">Math/MTH</option>
-                    <option value="CIS">Comp Sci/ CIS</option>
-                </select>
-                <select class="form-select dropDown" id="floatingSelect2">
                 </select>
             </div>
+            <button id="submit" class="btn">Submit</button>
         </div>
         <div class="container mt-4" id="calendarContainer">
             <h2 class="text-center">Weekly Calendar</h2>
@@ -47,9 +30,12 @@
         </div>
         <div id="error" style="z-index: -1;"></div>
     </div>
+    <footer id="footer"></footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+        
+    <script src="shared.js"></script>
     <script src="input.js"></script>
 </body>
 
