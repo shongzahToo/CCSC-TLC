@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a href="index.html" class="text nav-link px-2 active" aria-current="page">Schedules</a>
+                    <a href="schedule.html" class="text nav-link px-2 active" aria-current="page">Schedules</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="text nav-link px-2">Cost & Aids</a>
