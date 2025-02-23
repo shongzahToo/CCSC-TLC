@@ -269,6 +269,7 @@ footer {
     margin: 0 !important;
     padding: 0.5rem 1rem; /* adjust padding as needed */
     box-sizing: border-box;
+    min-width: 400px;
   }
 
   .logo {
@@ -284,6 +285,7 @@ footer {
   .dropDown {
     width: 100%;
     margin-bottom: 10px;
+    min-width: 400px;
   }
 
   /* Adjust table styling for smaller screens */
