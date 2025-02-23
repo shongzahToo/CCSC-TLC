@@ -1,21 +1,29 @@
-const selectedTimes = new Map();
+let selectedTimes = {};
 var days = ["MON", "TUE", "WED", "THU", "FRI"];
 
-window.onload = async function() {
+window.onload = async function () {
     try {
-        const response = await fetch('http://70.57.81.35:5000/tutors')
-        apiData = await response.json()
-        console.log(apiData)
-    } catch(error) {
-        document.getElementById("error").innerText = "An error occured, please try again later"
-        Array.from(["selectBoxContainer", "calendarContainer"]).forEach(id => {
-            document.getElementById(id).remove()
-        })
-        console.error('Failed to fetch schedule data:', error);
+        const response = await fetch("http://70.57.81.35:5000/tutors");
+        apiData = await response.json();
+        console.log(apiData);
+        pushData();
+        populateFirstDropdown();
+        updateCells();
+    } catch (error) {
+        document.getElementById("error").innerText =
+            "An error occured, please try again later";
+        Array.from([
+            "selectBoxContainer",
+            "calendarContainer",
+            "settingsContainer",
+        ]).forEach((id) => {
+            document.getElementById(id).remove();
+        });
+        console.error("Failed to fetch schedule data:", error);
     }
-    populateFirstDropdown()
-}
-CreateTable()
+};
+
+CreateTable();
 
 class Range {
     constructor(start, end) {
@@ -31,62 +39,84 @@ function populateFirstDropdown() {
     for (const tutor in apiData) {
         const option = document.createElement("option");
         option.value = apiData[tutor].student_id;
-        option.textContent = apiData[tutor].first_name + " " + apiData[tutor].last_name;
+        option.textContent =
+            apiData[tutor].first_name + " " + apiData[tutor].last_name;
         firstSelect.appendChild(option);
     }
 }
+function clearTableData() {
+    clearTableDisplay();
+    let person = document.getElementById("floatingSelect").value;
+    for (let i = 0; i < apiData.length; i++) {
+        if (apiData[i].student_id == person) {
+            apiData[i].schedule = [];
+        }
+    }
+}
+function pushData() {
+    // add empty schedules
+    // push api data
+    for (let i = 0; i < apiData.length; i++) {
+        let tutor = apiData[i];
+    }
+}
 
+document.getElementById("floatingSelect").addEventListener("change", () => {
+    updateCells();
+});
 
+function clearTableDisplay() {
+    document.getElementById("calendar").innerHTML = "";
+    CreateTable();
+}
 
 function updateCells() {
+    //clearTableDisplay();
+    selectedTimes = {};
     var tbody = document.getElementById("calendar").children[1];
     //Get all cells(td) except the time
     var dayCells = [];
     for (let tr = 0; tr < tbody.children.length; tr++) {
         for (let td = 0; td < tbody.children[tr].children.length; td++) {
-            if(td != 0)
-            {
+            if (td != 0) {
                 dayCells.push(tbody.children[tr].children[td]);
             }
         }
     }
-    //this needs to be a array of arrays that contains the start-end times
+    let person = document.getElementById("floatingSelect").value;
+    //this is an array of arrays that contains the start-end times
     var specificSchedule = [];
-    dayCells.forEach(day => {
+    for (let i = 0; i < apiData.length; i++) {
+        if (apiData[i].student_id == person) {
+            specificSchedule = apiData[i].schedule;
+        }
+    }
+    dayCells.forEach((cell) => {
         if (!specificSchedule) {
-            day.classList.toggle("selected", false)
+            cell.classList.toggle("selected", false);
         } else {
             var isSelected = false;
             //grabbing day and time from cell id
-            var dayOfWeek = day.id.slice(1);
-            var timeSlotId = day.id.substring(0,1);
-            if(day.id.length == 5)
-            {
-                timeSlotId = day.id.substring(0,2);
-                dayOfWeek = day.id.slice(2);
+            var dayOfWeek = cell.id.slice(1);
+            var timeSlotId = cell.id.substring(0, 1);
+            if (cell.id.length == 5) {
+                timeSlotId = cell.id.substring(0, 2);
+                dayOfWeek = cell.id.slice(2);
             }
-            
+
             var timeSlots = specificSchedule[dayOfWeek];
 
             if (timeSlots) {
-                timeSlots.forEach(range => {
-                    if(((range[0]) <= (timeSlotId)) && ((timeSlotId) <= (range[1] - 1))) {
-                        title = `${(Math.floor(range[0] / 2) + 7) % 12 + 1}:${((range[0] - 1) % 2) ? "00" : "30"} ${(range[0] - 1)>8 ? "PM" : "AM"}` +
-                            ` - ${Math.floor((range[1]) / 2 + 7) % 12 + 1}:${((range[1]) % 2) ? "30" : "00"} ${(range[1])>8 ? "PM" : "AM"}`
-                            isSelected = true;
+                timeSlots.forEach((range) => {
+                    if (range.Start <= timeSlotId && timeSlotId <= range.End) {
+                        isSelected = true;
                     }
                 });
             }
-            day.classList.toggle("selected", isSelected);
+            cell.classList.toggle("selected", isSelected);
         }
     });
 }
-
-
-
-
-
-
 
 var body = document.createElement("tbody");
 
@@ -115,11 +145,12 @@ table.addEventListener("mouseup", (event) => {
         isMouseDown = false;
     }
 });
-
-document.getElementById("submit").addEventListener("click", updateData);
+let clear = document.getElementById("clear");
+clear.addEventListener("click", clearTableData);
+// document.getElementById("submit").addEventListener("click", updateData);
 
 function updateData(clickEvent) {
-    if (clickEvent.target.innerHTML != "") {
+    if (clickEvent.target.innerHTML != "" || clickEvent.target.tagname == "TD") {
         return;
     }
 
@@ -135,7 +166,7 @@ function updateData(clickEvent) {
         timeSlotId = clickEvent.target.id.substring(0, 2);
         dayOfWeek = clickEvent.target.id.slice(2);
     }
-    let times = selectedTimes.get(dayOfWeek);
+    let times = selectedTimes[dayOfWeek];
     if (!times) {
         times = [];
     }
@@ -150,7 +181,7 @@ function updateData(clickEvent) {
             times.splice(index, 1); // 2nd parameter means remove one item only
         }
     }
-    selectedTimes.set(dayOfWeek, times);
+    selectedTimes[dayOfWeek] += times;
     formatData();
 }
 
@@ -160,17 +191,18 @@ function toggleSlot(cell) {
 }
 
 function formatData() {
-    let array = Array.from(selectedTimes);
-    let finalRanges = new Map()
+    let array = Object.entries(selectedTimes);
+    let finalRanges = {};
+    console.log(selectedTimes)
+    console.log(array)
+    console.log(array.length)
 
-    console.log("Start Formating");
-    //console.log(array)
     for (let day = 0; day < array.length; day++) {
         let starts = [];
         let ends = [];
         let activeTimeSlots = array[day][1].map((str) => parseInt(str));
         let timeSlots = [];
-        let ranges = []
+        let ranges = [];
         for (let i = 0; i < 24; i++) {
             if (activeTimeSlots.indexOf(i) > -1) {
                 timeSlots.push(1);
@@ -179,37 +211,35 @@ function formatData() {
             }
         }
         if (timeSlots[0] == 1) {
-            starts.push(0)
+            starts.push(0);
         }
         if (timeSlots[23] == 1) {
-            ends.push(23)
+            ends.push(23);
         }
         for (let i = 1; i < 23; i++) {
-            if ((timeSlots[i] == 0) && (timeSlots[i - 1] == 1)) {
-                ends.push(i - 1)
+            if (timeSlots[i] == 0 && timeSlots[i - 1] == 1) {
+                ends.push(i - 1);
             }
-            if ((timeSlots[i - 1] == 0) && (timeSlots[i] == 1)) {
-                starts.push(i)
+            if (timeSlots[i - 1] == 0 && timeSlots[i] == 1) {
+                starts.push(i);
             }
         }
         for (let i = 0; i < starts.length; i++) {
-            ranges.push(new Range(starts[i], ends[i]))
+            ranges.push(new Range(starts[i], ends[i]));
         }
-        finalRanges.set(array[day][0], ranges)
+        finalRanges[array[day][0]] = ranges;
     }
-    console.log(finalRanges)
-    //append the ranges to the tutor objects in the tutors array
-    let tutorId = document.getElementById("floatingSelect").value
 
-    apiData = addRangeToStudent(finalRanges, tutorId)
-    console.log(apiData)
+    //append the ranges to the tutor objects in the tutors array
+    let tutorId = document.getElementById("floatingSelect").value;
+    apiData = addRangeToStudent(finalRanges, tutorId);
+    console.log(apiData);
 }
 
-
 function addRangeToStudent(rangeMap, studentId) {
-    return apiData.map(student => {
+    return apiData.map((student) => {
         if (student.student_id === studentId) {
-            return { ...student, range: rangeMap };
+            return { ...student, schedule: rangeMap };
         }
         return student;
     });

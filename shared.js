@@ -11,7 +11,7 @@
             <li class="nav-item"><a href="#" class="text nav-link px-2">Cost & Aids</a></li>
             <li class="nav-item"><a href="#" class="text nav-link px-2">Admissions</a></li>
             <li class="nav-item"><a href="#" class="text nav-link px-2">Services</a></li>
-            <li class="nav-item"><a href="#" class="text nav-link px-2">About</a></li>
+            <li class="nav-item"><a href="about.html" class="text nav-link px-2">About</a></li>
         </ul>
     </div>`
     footer.innerHTML = `<div class="container">

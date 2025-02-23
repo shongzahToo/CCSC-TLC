@@ -1,5 +1,5 @@
 * {
-  font-weight: 700;
+  font-weight: 400;
   font-family: Roboto, sans-serif;
 }
 
@@ -18,13 +18,20 @@
   --otc-link-color: #154ae1;
   --white: #ffffff;
   --error: rgb(255, 92, 92);
+  --good: rgb(0, 170, 3);
+  --bad: rgb(186, 0, 0);
 }
+.dropDown{
+    margin: 2%;
+}
+
 body {
   background-color: var(--otc-web-grey);
 }
 nav {
   background-color: var(--otc-dark-blue);
   color: var(--otc-grey);
+  z-index: 9000;
 }
 nav {
   position: sticky;
@@ -61,6 +68,9 @@ p {
 
 .highlight {
   background-color: var(--otc-web-grey);
+}
+.col-12{
+    max-width: 50%;
 }
 
 .calendar {
@@ -159,21 +169,16 @@ tr:last-child {
 }
 .para{
     margin-top: 5%;
+    font-weight: 200;
 }
-
-#submit
-{
-    margin-left: auto;
-    width:150px;
-}
-
 .home-img {
   width: auto;
   height: 85vh;
   object-fit: cover;
-  margin: 5%;
 }
-
+.about{
+    height: 100vh;
+}
 .start {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -195,9 +200,7 @@ footer {
   bottom: 0;
   width: 100%;
 }
-.col {
-    margin: 3%;
-}
+
 .btn {
   background-color: var(--otc-blue);
   border: solid var(--otc-dark-blue) 2px;
@@ -226,6 +229,21 @@ footer {
   display: inline-block;
   text-align: center;
   font-size: larger;
+}
+
+#clear {
+    background-color: var(--bad);
+    border: none;
+}
+
+#submit {
+    background-color: var(--good);
+    border: none;
+}
+
+#clear:hover, #submit:hover {
+    color: white;
+    filter: brightness(80%);
 }
 
 @media (max-width: 576px) {
@@ -265,4 +283,16 @@ footer {
   td {
     padding: 5px; /* reduce cell padding */
   }
+  .home-img{
+    height: 40vh;
+    margin: 0px;
+  }
+  .big-logo{
+    display: none;
+  }
+
+  .col-12{
+    max-width: none;
+  }
+  
 }
