@@ -78,7 +78,6 @@ function updateCells() {
                         isEnd = true
                     }
                     if(((range[0]) <= (timeSlotId)) && ((timeSlotId) <= (range[1] - 1))) {
-                        console.log(`${range[0]} <= ${timeSlotId} <= ${range[1] - 1}`)
                         title = `${(Math.floor(range[0] / 2) + 7) % 12 + 1}:${((range[0] - 1) % 2) ? "00" : "30"} ${(range[0] - 1)>8 ? "PM" : "AM"}` +
                             ` - ${Math.floor((range[1]) / 2 + 7) % 12 + 1}:${((range[1]) % 2) ? "30" : "00"} ${(range[1])>8 ? "PM" : "AM"}`
                             isSelected = true

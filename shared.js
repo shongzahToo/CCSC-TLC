@@ -6,7 +6,7 @@
     nav.innerHTML = `
     <div class="container">
         <!-- Logo -->
-        <a class="logo navbar-brand" href="home.html"></a>
+        <a class="logo navbar-brand" href='index.html'"></a>
 
         <!-- Hamburger button for mobile -->
         <button class="navbar-toggler burger-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
