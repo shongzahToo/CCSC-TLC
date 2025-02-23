@@ -1,7 +1,7 @@
 let selectedTimes = {};
 var days = ["MON", "TUE", "WED", "THU", "FRI"];
 
-window.onload = async function () {
+window.onload = async function() {
     try {
         const response = await fetch("http://70.57.81.35:5000/tutors");
         apiData = await response.json();
@@ -26,9 +26,9 @@ window.onload = async function () {
 CreateTable();
 
 class Range {
-    constructor(start, end) {
-        this.start = start;
-        this.end = end;
+    constructor(Start, End) {
+        this.Start = Start;
+        this.End = End;
     }
 }
 
@@ -71,8 +71,6 @@ function clearTableDisplay() {
 }
 
 function updateCells() {
-    //clearTableDisplay();
-    selectedTimes = {};
     var tbody = document.getElementById("calendar").children[1];
     //Get all cells(td) except the time
     var dayCells = [];
@@ -166,13 +164,19 @@ function updateData(clickEvent) {
         timeSlotId = clickEvent.target.id.substring(0, 2);
         dayOfWeek = clickEvent.target.id.slice(2);
     }
+    //times is an array
     let times = selectedTimes[dayOfWeek];
     if (!times) {
         times = [];
     }
     if (selected) {
+
         if (times.indexOf(timeSlotId) == -1) {
             times.push(timeSlotId);
+        }
+        else
+        {
+            console.log("This line should never run");
         }
     } else {
         let index = times.indexOf(timeSlotId);
@@ -180,8 +184,19 @@ function updateData(clickEvent) {
             // only splice array when item is found
             times.splice(index, 1); // 2nd parameter means remove one item only
         }
+        else
+        {
+            console.log("This line should never run");
+        }
     }
-    selectedTimes[dayOfWeek] += times;
+    if(selectedTimes[dayOfWeek])
+    {
+        selectedTimes[dayOfWeek].concat(times);
+    }
+    else
+    {
+        selectedTimes[dayOfWeek] = times;
+    } 
     formatData();
 }
 
@@ -217,10 +232,10 @@ function formatData() {
             ends.push(23);
         }
         for (let i = 1; i < 23; i++) {
-            if (timeSlots[i] == 0 && timeSlots[i - 1] == 1) {
+            if ((timeSlots[i] == 0) && (timeSlots[i - 1] == 1)) {
                 ends.push(i - 1);
             }
-            if (timeSlots[i - 1] == 0 && timeSlots[i] == 1) {
+            if ((timeSlots[i - 1] == 0) && (timeSlots[i] == 1)) {
                 starts.push(i);
             }
         }

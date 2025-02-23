@@ -1,18 +1,39 @@
 
     //Fill nav and footers
     var nav = document.getElementById('nav');
+    nav.className = "navbar navbar-expand-lg navbar-dark py-2 border-bottom"
     var footer = document.getElementById('footer');
     nav.innerHTML = `
-    <div class="container d-flex flex-wrap">
-        <ul class="nav me-auto">
-            <a class="logo" href = "home.html">
-            </a>
-            <li class="nav-item"><a href="index.html" class="text nav-link px-2 active" aria-current="page">Schedules</a></li>
-            <li class="nav-item"><a href="#" class="text nav-link px-2">Cost & Aids</a></li>
-            <li class="nav-item"><a href="#" class="text nav-link px-2">Admissions</a></li>
-            <li class="nav-item"><a href="#" class="text nav-link px-2">Services</a></li>
-            <li class="nav-item"><a href="about.html" class="text nav-link px-2">About</a></li>
-        </ul>
+    <div class="container">
+        <!-- Logo -->
+        <a class="logo navbar-brand" href="home.html"></a>
+
+        <!-- Hamburger button for mobile -->
+        <button class="navbar-toggler burger-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible navigation items -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="index.html" class="text nav-link px-2 active" aria-current="page">Schedules</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="text nav-link px-2">Cost & Aids</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="text nav-link px-2">Admissions</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="text nav-link px-2">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="text nav-link px-2">About</a>
+                </li>
+            </ul>
+        </div>
     </div>`
     footer.innerHTML = `<div class="container">
     <p>Ozarks Technical Community College</p>
